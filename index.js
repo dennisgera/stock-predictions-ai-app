@@ -47,7 +47,7 @@ async function fetchStockData() {
     loadingArea.style.display = 'flex'
     try {
         const stockData = await Promise.all(tickersArr.map(async (ticker) => {
-            const url = `https://polygon-api-worker.dgera.workers.dev/?ticker=${ticker}&startDate=${dates.startDate}&endDate=${dates.endDate}`
+            const url = `https://polygon-api-worker.dgera.workers.dev/financial-data?ticker=${ticker}&startDate=${dates.startDate}&endDate=${dates.endDate}`
             const response = await fetch(url)
             if (!response.ok) {
                 const errMsg = await response.text()
@@ -96,7 +96,7 @@ async function fetchReport(data) {
         if (!response.ok) {
             throw new Error(`Worker Error: ${data.error}`)
         }
-        renderReport(data.content)
+        renderReport(data.message)
     } catch (err) {
         console.error(err.message)
         loadingArea.innerText = 'Unable to access AI. Please refresh and try again'
